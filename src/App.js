@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import image from "./assets/image.jpg";
+import styled from "styled-components";
+
+const AppWrapper = styled.section`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-image: linear-gradient(to bottom right, #d1e6f7, #2887c1, #0061a8);
+  background-size: cover;
+  background-repeat: no-repeat;
+`;
+
+const AppContainer = styled.section`
+  width: 70%;
+  height: 85%;
+  margin: 80px auto;
+  background-image: url(${image});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppWrapper>
+      <AppContainer></AppContainer>
+    </AppWrapper>
   );
 }
 
