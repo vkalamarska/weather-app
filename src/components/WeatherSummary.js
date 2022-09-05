@@ -15,7 +15,7 @@ const Temperature = styled.span`
   font-size: 95px;
 `;
 
-const Details = styled.div`
+const CityContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -30,7 +30,7 @@ const Time = styled.span`
   padding: 0 0 15px 15px;
 `;
 
-const WeatherCondition = styled.div`
+const WeatherConditionContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -48,16 +48,16 @@ const WeatherSummary = () => {
   return (
     <SummaryContainer>
       <Temperature>16°</Temperature>
-      <Details>
+      <CityContainer>
         <City>London</City>
         <Time>10:36 - Monday, 9 Sep '19</Time>
-      </Details>
-      <WeatherCondition>
+      </CityContainer>
+      <WeatherConditionContainer>
         <Icon>
           <WiDayCloudy size={45} color="white" />
         </Icon>
         <Condition>Cloudy</Condition>
-      </WeatherCondition>
+      </WeatherConditionContainer>
     </SummaryContainer>
   );
 };
