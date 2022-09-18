@@ -51,7 +51,7 @@ const AppContainer = styled.section`
 `;
 
 const LeftPanel = styled.section`
-  width: 60%;
+  width: 65%;
   height: 100%;
 `;
 
