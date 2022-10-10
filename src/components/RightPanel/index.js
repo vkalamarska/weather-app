@@ -16,6 +16,7 @@ const Line = styled.div`
 `;
 
 const PanelContent = styled.div`
+  height: 60%;
   overflow: scroll;
 `;
 
@@ -28,7 +29,9 @@ const RightPanel = () => {
 
       <PanelContent>
         <WeatherDetails />
+
         <Line />
+
         <FollowingDays />
       </PanelContent>
     </RightContainer>
