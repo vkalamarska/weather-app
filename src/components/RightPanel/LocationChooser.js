@@ -1,6 +1,6 @@
 import SearchIcon from "../../assets/search_icon.png";
 import styled from "styled-components";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const LocationContainer = styled.div`
   margin: 0 0 15px 0;
@@ -60,12 +60,15 @@ const City = styled.div`
 const LocationChooser = () => {
   const [city, setCity] = useState("");
 
+  const handleChange = event => {
+    setCity(event.target.value);
+  };
+
   const textInput = useRef(null);
 
   const handleClick = () => {
     textInput.current.focus();
   };
-  const handleChange = () => {};
 
   return (
     <>
