@@ -1,6 +1,7 @@
 import image from "./assets/image.jpg";
 import styled from "styled-components";
 import WeatherSummary from "./components/WeatherSummary";
+import RightPanel from "./components/RightPanel";
 
 const AppWrapper = styled.section`
   width: 100%;
@@ -28,6 +29,7 @@ const AppContainer = styled.section`
   width: 75%;
   height: 90%;
   margin: 35px auto;
+  display: flex;
   background-image: url(${image});
   background-size: cover;
   background-repeat: no-repeat;
@@ -48,11 +50,19 @@ const AppContainer = styled.section`
   }
 `;
 
+const LeftPanel = styled.section`
+  width: 65%;
+  height: 100%;
+`;
+
 function App() {
   return (
     <AppWrapper>
       <AppContainer>
-        <WeatherSummary></WeatherSummary>
+        <LeftPanel>
+          <WeatherSummary></WeatherSummary>
+        </LeftPanel>
+        <RightPanel></RightPanel>
       </AppContainer>
     </AppWrapper>
   );
