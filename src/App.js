@@ -2,6 +2,7 @@ import image from "./assets/image.jpg";
 import styled from "styled-components";
 import WeatherSummary from "./components/WeatherSummary";
 import RightPanel from "./components/RightPanel";
+import { useEffect, useState } from "react";
 
 const AppWrapper = styled.section`
   width: 100%;
@@ -56,11 +57,27 @@ const LeftPanel = styled.section`
 `;
 
 function App() {
+  const [apiData, setApiData] = useState(null);
+
+  useEffect(() => {
+    fetch(
+      "https://api.openweathermap.org/data/2.5/weather?lat=39.4697&lon=-0.3774&appid=9d66f6522fa2befa44ba5c51e6e4c09b&units=metric"
+    )
+      .then(res => res.json())
+      .then(result => {
+        setApiData(result);
+      });
+  }, []);
+
+  if (!apiData) {
+    return <div>Loading</div>;
+  }
+
   return (
     <AppWrapper>
       <AppContainer>
         <LeftPanel>
-          <WeatherSummary></WeatherSummary>
+          <WeatherSummary weatherData={apiData}></WeatherSummary>
         </LeftPanel>
         <RightPanel></RightPanel>
       </AppContainer>

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { WiDayCloudy } from "weather-icons-react";
 
@@ -44,19 +46,49 @@ const Condition = styled.span`
   padding: 0 0 15px 15px;
 `;
 
-const WeatherSummary = () => {
+const getLocalTime = utcOffset => {
+  const utcTime = new Date(
+    new Date().getTime() - new Date().getTimezoneOffset() * 60 * 1000
+  );
+  const localTime = new Date(utcTime.getTime() - utcOffset * 1000);
+
+  return localTime;
+};
+
+const WeatherSummary = ({ weatherData }) => {
+  const [localTime, setLocalTime] = useState(new Date());
+
+  useEffect(() => {
+    setInterval(() => {
+      setLocalTime(getLocalTime(weatherData.timezone));
+    }, 60000);
+  }, []);
+
   return (
     <SummaryContainer>
-      <Temperature>16°</Temperature>
+      <Temperature>{weatherData.main.temp.toFixed()}°</Temperature>
       <CityContainer>
-        <City>London</City>
-        <Time>10:36 - Monday, 9 Sep '19</Time>
+        <City>{weatherData.name}</City>
+        <Time>
+          {localTime.toLocaleString("en-US", {
+            hour: "2-digit",
+            hour12: false,
+            minute: "2-digit",
+          })}
+          {", "}
+          {localTime.toLocaleString("en-US", {
+            weekday: "long",
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          })}
+        </Time>
       </CityContainer>
       <WeatherConditionContainer>
         <Icon>
           <WiDayCloudy size={45} color="white" />
         </Icon>
-        <Condition>Cloudy</Condition>
+        <Condition>{weatherData.weather[0].main}</Condition>
       </WeatherConditionContainer>
     </SummaryContainer>
   );
