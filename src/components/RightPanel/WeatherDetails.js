@@ -67,25 +67,25 @@ const PressureValue = styled.span`
   padding: 8px 0;
 `;
 
-const WeatherDetails = () => {
+const WeatherDetails = ({ weatherData }) => {
   return (
     <WeatherDetailsContainer>
       <WeatherDetailsItem>Weather Details</WeatherDetailsItem>
       <CloudyContainer>
-        <CloudyItem>Cloudy</CloudyItem>
-        <CloudyValue>86%</CloudyValue>
+        <CloudyItem>Cloudiness</CloudyItem>
+        <CloudyValue>{weatherData.clouds.all}%</CloudyValue>
       </CloudyContainer>
       <HumidityContainer>
         <HumidityItem>Humidity</HumidityItem>
-        <HumidityValue>70%</HumidityValue>
+        <HumidityValue>{weatherData.main.humidity}%</HumidityValue>
       </HumidityContainer>
       <WindContainer>
         <WindItem>Wind</WindItem>
-        <WindValue>8km/h</WindValue>
+        <WindValue>{weatherData.wind.speed.toFixed()} m/s</WindValue>
       </WindContainer>
       <PressureContainer>
         <PressureItem>Pressure</PressureItem>
-        <PressureValue>1019hPa</PressureValue>
+        <PressureValue>{weatherData.main.pressure} hPa</PressureValue>
       </PressureContainer>
     </WeatherDetailsContainer>
   );

@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import { WiDayCloudy } from "weather-icons-react";
 
 const SummaryContainer = styled.section`
   display: flex;
@@ -43,7 +42,7 @@ const Icon = styled.span`
 
 const Condition = styled.span`
   font-size: 16px;
-  padding: 0 0 15px 15px;
+  padding: 0 0 15px 18px;
 `;
 
 const getLocalTime = utcOffset => {
@@ -55,7 +54,7 @@ const getLocalTime = utcOffset => {
   return localTime;
 };
 
-const WeatherSummary = ({ weatherData }) => {
+const WeatherSummary = ({ weatherData, weatherIcon: WeatherIcon }) => {
   const [localTime, setLocalTime] = useState(new Date());
 
   useEffect(() => {
@@ -86,7 +85,7 @@ const WeatherSummary = ({ weatherData }) => {
       </CityContainer>
       <WeatherConditionContainer>
         <Icon>
-          <WiDayCloudy size={45} color="white" />
+          <WeatherIcon size={45} color="white" />
         </Icon>
         <Condition>{weatherData.weather[0].main}</Condition>
       </WeatherConditionContainer>

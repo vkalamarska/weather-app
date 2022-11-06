@@ -1,4 +1,4 @@
-import image from "./assets/image.jpg";
+import getWeatherAssets from "./getWeatherAssets";
 import styled from "styled-components";
 import WeatherSummary from "./components/WeatherSummary";
 import RightPanel from "./components/RightPanel";
@@ -15,7 +15,7 @@ const AppWrapper = styled.section`
     width: 100vw;
     height: 100vh;
     position: fixed;
-    background-image: url(${image});
+    background-image: url(${p => p.image});
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -31,7 +31,7 @@ const AppContainer = styled.section`
   height: 90%;
   margin: 35px auto;
   display: flex;
-  background-image: url(${image});
+  background-image: url(${p => p.image});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -73,13 +73,20 @@ function App() {
     return <div>Loading</div>;
   }
 
+  const weatherId = apiData.weather[0].id;
+
+  const { backgroundImage, weatherIcon } = getWeatherAssets(weatherId);
+
   return (
-    <AppWrapper>
-      <AppContainer>
+    <AppWrapper image={backgroundImage}>
+      <AppContainer image={backgroundImage}>
         <LeftPanel>
-          <WeatherSummary weatherData={apiData}></WeatherSummary>
+          <WeatherSummary
+            weatherIcon={weatherIcon}
+            weatherData={apiData}
+          ></WeatherSummary>
         </LeftPanel>
-        <RightPanel></RightPanel>
+        <RightPanel weatherData={apiData}></RightPanel>
       </AppContainer>
     </AppWrapper>
   );
