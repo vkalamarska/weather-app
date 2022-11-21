@@ -56,18 +56,26 @@ const LeftPanel = styled.section`
   height: 100%;
 `;
 
+// 1. ZRobic nowy stan z "city" i "setCity"
+// 2. Przekazać setCity do RightPanel (tak samo jak weatherData)
+// 3. W RightPanel przekazac setCity do LocationChooser tak samo
+// 4. Zmienić w tym pliku w useEffect że jeśli nie ma city to ma zrobić return, i dodać do arrayki na końcu zmienna "city"
+// 5. Podmienić w url w fetch że lat i long będzie brane z "city" - city.lat i city.long
+
 function App() {
   const [apiData, setApiData] = useState(null);
 
+  const [city, setCity] = useState({ lat: 39.4697, lon: -0.3774 });
+
   useEffect(() => {
     fetch(
-      "https://api.openweathermap.org/data/2.5/weather?lat=39.4697&lon=-0.3774&appid=9d66f6522fa2befa44ba5c51e6e4c09b&units=metric"
+      `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&appid=9d66f6522fa2befa44ba5c51e6e4c09b&units=metric`
     )
       .then(res => res.json())
       .then(result => {
         setApiData(result);
       });
-  }, []);
+  }, [city]);
 
   if (!apiData) {
     return <div>Loading</div>;
@@ -86,7 +94,7 @@ function App() {
             weatherData={apiData}
           ></WeatherSummary>
         </LeftPanel>
-        <RightPanel weatherData={apiData}></RightPanel>
+        <RightPanel weatherData={apiData} setCity={setCity}></RightPanel>
       </AppContainer>
     </AppWrapper>
   );

@@ -20,10 +20,10 @@ const PanelContent = styled.div`
   overflow: scroll;
 `;
 
-const RightPanel = ({ weatherData }) => {
+const RightPanel = ({ weatherData, setCity }) => {
   return (
     <RightContainer>
-      <LocationChooser />
+      <LocationChooser setCity={setCity} />
 
       <Line />
 
