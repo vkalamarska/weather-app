@@ -1,6 +1,6 @@
 import SearchIcon from "../../assets/search_icon.png";
 import styled from "styled-components";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const LocationContainer = styled.div`
   margin: 0 0 15px 0;
@@ -55,13 +55,32 @@ const LastLocationsContainer = styled.div`
 const City = styled.div`
   padding: 8px 0;
   color: #d3d3d3;
+  cursor: pointer;
 `;
 
-const LocationChooser = () => {
-  const [city, setCity] = useState("");
+const PLACES_API_KEY = "812dbcc47de44cf5b1749b5e665559d8";
+
+const LocationChooser = ({ setCity }) => {
+  const [apiData, setApiData] = useState([]);
 
   const handleChange = event => {
-    setCity(event.target.value);
+    const value = event.target.value;
+
+    if (value.length < 3) {
+      return;
+    }
+
+    fetch(
+      `https://api.geoapify.com/v1/geocode/autocomplete?text=${value}&limit=10&type=city&apiKey=812dbcc47de44cf5b1749b5e665559d8`
+    )
+      .then(res => res.json())
+      .then(result => {
+        const cities = result.features.filter(item => {
+          return item.properties.result_type === "city";
+        });
+        setApiData(cities);
+        console.log(cities);
+      });
   };
 
   const textInput = useRef(null);
@@ -81,8 +100,15 @@ const LocationChooser = () => {
         <SearchButton onClick={handleClick}></SearchButton>
       </LocationContainer>
       <LastLocationsContainer>
-        <City>London</City>
-        <City>Manchester</City>
+        {apiData.map(city => (
+          <City
+            onClick={() => {
+              setCity({ lat: city.properties.lat, lon: city.properties.lon });
+            }}
+          >
+            {city.properties.city}, {city.properties.country}
+          </City>
+        ))}
       </LastLocationsContainer>
     </>
   );
