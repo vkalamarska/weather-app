@@ -1,5 +1,6 @@
 import SearchIcon from "../../assets/search_icon.png";
 import styled from "styled-components";
+import Line from "./Line";
 import { useRef, useState, useEffect } from "react";
 
 const LocationContainer = styled.div`
@@ -13,8 +14,8 @@ const LocationContainer = styled.div`
 const AnotherLocationInput = styled.input`
   font-family: "Gill Sans", sans-serif;
   font-size: 16px;
-  margin: 37px 38px 0px 38px;
-  padding: 0 74px 0 0;
+  margin: 37px 0px 0px 38px;
+  padding: 0 50px 0 0;
   color: #d3d3d3;
   background-color: transparent;
   border: none;
@@ -62,31 +63,28 @@ const PLACES_API_KEY = "812dbcc47de44cf5b1749b5e665559d8";
 
 const LocationChooser = ({ setCity }) => {
   const [apiData, setApiData] = useState([]);
+  const [inputValue, setInputValue] = useState("");
 
-  const handleChange = event => {
-    const value = event.target.value;
-
-    if (value.length < 3) {
-      return;
-    }
+  useEffect(() => {
+    if (!inputValue || inputValue.length > 3) return;
 
     fetch(
-      `https://api.geoapify.com/v1/geocode/autocomplete?text=${value}&limit=10&type=city&apiKey=812dbcc47de44cf5b1749b5e665559d8`
+      `https://api.geoapify.com/v1/geocode/autocomplete?text=${inputValue}&limit=10&type=city&apiKey=812dbcc47de44cf5b1749b5e665559d8`
     )
-      .then(res => res.json())
-      .then(result => {
-        const cities = result.features.filter(item => {
-          return item.properties.result_type === "city";
-        });
+      .then((res) => res.json())
+      .then((result) => {
+        const cities = result.features.filter(
+          (item) => item.properties.result_type === "city"
+        );
         setApiData(cities);
-        console.log(cities);
       });
-  };
+  }, [inputValue]);
 
-  const textInput = useRef(null);
+  const inputRef = useRef(null);
 
-  const handleClick = () => {
-    textInput.current.focus();
+  const handleCitySelect = (city) => {
+    setCity({ lat: city.properties.lat, lon: city.properties.lon });
+    setInputValue("");
   };
 
   return (
@@ -94,22 +92,24 @@ const LocationChooser = ({ setCity }) => {
       <LocationContainer>
         <AnotherLocationInput
           placeholder="Another Location"
-          ref={textInput}
-          onChange={handleChange}
+          ref={inputRef}
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
         ></AnotherLocationInput>
-        <SearchButton onClick={handleClick}></SearchButton>
+        <SearchButton onClick={() => inputRef.current.focus()}></SearchButton>
       </LocationContainer>
-      <LastLocationsContainer>
-        {apiData.map(city => (
-          <City
-            onClick={() => {
-              setCity({ lat: city.properties.lat, lon: city.properties.lon });
-            }}
-          >
-            {city.properties.city}, {city.properties.country}
-          </City>
-        ))}
-      </LastLocationsContainer>
+      {apiData.length > 0 && inputValue.length > 3 && (
+        <>
+          <LastLocationsContainer>
+            {apiData.slice(0, 5).map((city) => (
+              <City onClick={() => handleCitySelect(city)}>
+                {city.properties.city}, {city.properties.country}
+              </City>
+            ))}
+          </LastLocationsContainer>
+          <Line />
+        </>
+      )}
     </>
   );
 };

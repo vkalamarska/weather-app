@@ -15,7 +15,7 @@ const AppWrapper = styled.section`
     width: 100vw;
     height: 100vh;
     position: fixed;
-    background-image: url(${p => p.image});
+    background-image: url(${(p) => p.image});
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -31,7 +31,7 @@ const AppContainer = styled.section`
   height: 90%;
   margin: 35px auto;
   display: flex;
-  background-image: url(${p => p.image});
+  background-image: url(${(p) => p.image});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -56,12 +56,6 @@ const LeftPanel = styled.section`
   height: 100%;
 `;
 
-// 1. ZRobic nowy stan z "city" i "setCity"
-// 2. Przekazać setCity do RightPanel (tak samo jak weatherData)
-// 3. W RightPanel przekazac setCity do LocationChooser tak samo
-// 4. Zmienić w tym pliku w useEffect że jeśli nie ma city to ma zrobić return, i dodać do arrayki na końcu zmienna "city"
-// 5. Podmienić w url w fetch że lat i long będzie brane z "city" - city.lat i city.long
-
 function App() {
   const [apiData, setApiData] = useState(null);
 
@@ -71,8 +65,8 @@ function App() {
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&appid=9d66f6522fa2befa44ba5c51e6e4c09b&units=metric`
     )
-      .then(res => res.json())
-      .then(result => {
+      .then((res) => res.json())
+      .then((result) => {
         setApiData(result);
       });
   }, [city]);
@@ -94,7 +88,12 @@ function App() {
             weatherData={apiData}
           ></WeatherSummary>
         </LeftPanel>
-        <RightPanel weatherData={apiData} setCity={setCity}></RightPanel>
+        <RightPanel
+          weatherData={apiData}
+          setCity={setCity}
+          city={city}
+          weatherIcon={weatherIcon}
+        ></RightPanel>
       </AppContainer>
     </AppWrapper>
   );

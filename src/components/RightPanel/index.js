@@ -2,37 +2,29 @@ import styled from "styled-components";
 import LocationChooser from "./LocationChooser";
 import WeatherDetails from "./WeatherDetails";
 import FollowingDays from "./FollowingDays";
+import Line from "./Line";
 
 const RightContainer = styled.section`
   width: 35%;
-  min-height: 100%;
+  max-height: 100%;
   backdrop-filter: blur(20px) brightness(65%);
   z-index: 2;
 `;
 
-const Line = styled.div`
-  margin: 15px 38px;
-  border-bottom: 1px solid #d3d3d3;
-`;
-
 const PanelContent = styled.div`
-  height: 60%;
-  overflow: scroll;
+  height: 100%;
+  overflow: auto;
 `;
 
-const RightPanel = ({ weatherData, setCity }) => {
+const RightPanel = ({ weatherData, setCity, city, weatherIcon }) => {
   return (
     <RightContainer>
       <LocationChooser setCity={setCity} />
 
-      <Line />
-
       <PanelContent>
         <WeatherDetails weatherData={weatherData} />
 
-        <Line />
-
-        <FollowingDays />
+        <FollowingDays city={city} weatherIcon={weatherIcon} />
       </PanelContent>
     </RightContainer>
   );

@@ -45,7 +45,7 @@ const Condition = styled.span`
   padding: 0 0 15px 18px;
 `;
 
-const getLocalTime = utcOffset => {
+const getLocalTime = (utcOffset) => {
   const utcTime = new Date(
     new Date().getTime() - new Date().getTimezoneOffset() * 60 * 1000
   );
