@@ -92,7 +92,6 @@ function App() {
           weatherData={apiData}
           setCity={setCity}
           city={city}
-          weatherIcon={weatherIcon}
         ></RightPanel>
       </AppContainer>
     </AppWrapper>

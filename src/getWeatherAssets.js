@@ -35,7 +35,7 @@ const weatherIcons = {
   clouds2: WiCloud,
 };
 
-const getWeatherType = weatherId => {
+const getWeatherType = (weatherId) => {
   const weatherGroupId = String(weatherId).charAt(0);
 
   switch (weatherGroupId) {
@@ -67,7 +67,7 @@ const getWeatherType = weatherId => {
   }
 };
 
-const getWeatherAssets = weatherId => {
+const getWeatherAssets = (weatherId) => {
   const weatherType = getWeatherType(weatherId);
 
   const backgroundImage = weatherImages[weatherType];

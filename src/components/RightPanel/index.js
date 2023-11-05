@@ -16,7 +16,7 @@ const PanelContent = styled.div`
   overflow: auto;
 `;
 
-const RightPanel = ({ weatherData, setCity, city, weatherIcon }) => {
+const RightPanel = ({ weatherData, setCity, city }) => {
   return (
     <RightContainer>
       <LocationChooser setCity={setCity} />
@@ -24,7 +24,7 @@ const RightPanel = ({ weatherData, setCity, city, weatherIcon }) => {
       <PanelContent>
         <WeatherDetails weatherData={weatherData} />
 
-        <FollowingDays city={city} weatherIcon={weatherIcon} />
+        <FollowingDays city={city} />
       </PanelContent>
     </RightContainer>
   );

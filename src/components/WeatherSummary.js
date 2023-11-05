@@ -45,23 +45,13 @@ const Condition = styled.span`
   padding: 0 0 15px 18px;
 `;
 
-const getLocalTime = (utcOffset) => {
-  const utcTime = new Date(
-    new Date().getTime() - new Date().getTimezoneOffset() * 60 * 1000
-  );
-  const localTime = new Date(utcTime.getTime() - utcOffset * 1000);
-
-  return localTime;
-};
-
 const WeatherSummary = ({ weatherData, weatherIcon: WeatherIcon }) => {
-  const [localTime, setLocalTime] = useState(new Date());
+  const localTimezoneOffsetInMs = new Date().getTimezoneOffset() * 60 * 1000;
+  const date = new Date(
+    new Date().getTime() + localTimezoneOffsetInMs + weatherData.timezone * 1000
+  );
 
-  useEffect(() => {
-    setInterval(() => {
-      setLocalTime(getLocalTime(weatherData.timezone));
-    }, 60000);
-  }, []);
+  // 11:00 + (-60) + 240
 
   return (
     <SummaryContainer>
@@ -69,18 +59,18 @@ const WeatherSummary = ({ weatherData, weatherIcon: WeatherIcon }) => {
       <CityContainer>
         <City>{weatherData.name}</City>
         <Time>
-          {localTime.toLocaleString("en-US", {
+          {date.toLocaleString("en-US", {
             hour: "2-digit",
             hour12: false,
             minute: "2-digit",
           })}
           {", "}
-          {localTime.toLocaleString("en-US", {
+          {date.toLocaleString("en-US", {
             weekday: "long",
             day: "numeric",
             month: "short",
             year: "numeric",
-          })}
+          })}{" "}
         </Time>
       </CityContainer>
       <WeatherConditionContainer>
