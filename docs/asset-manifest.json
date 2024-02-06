@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.5bf266a3.css",
+    "main.js": "/static/js/main.78b5cfd5.js",
+    "static/js/787.d9312eb8.chunk.js": "/static/js/787.d9312eb8.chunk.js",
+    "static/media/rain.jpg": "/static/media/rain.c2479b28d23c0cce088b.jpg",
+    "static/media/fog.jpg": "/static/media/fog.0ce02ede09a3230f1ddf.jpg",
+    "static/media/fewclouds.jpg": "/static/media/fewclouds.aaa247d234e3a46c99f7.jpg",
+    "static/media/snow.jpg": "/static/media/snow.70c63aec78593bfc009d.jpg",
+    "static/media/clouds.jpg": "/static/media/clouds.baae6c553814856c98b9.jpg",
+    "static/media/thunder.jpg": "/static/media/thunder.69d27f49721d811f3c82.jpg",
+    "static/media/sun.jpg": "/static/media/sun.793206d46cc1b993bacf.jpg",
+    "index.html": "/index.html",
+    "main.5bf266a3.css.map": "/static/css/main.5bf266a3.css.map",
+    "main.78b5cfd5.js.map": "/static/js/main.78b5cfd5.js.map",
+    "787.d9312eb8.chunk.js.map": "/static/js/787.d9312eb8.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5bf266a3.css",
+    "static/js/main.78b5cfd5.js"
+  ]
+}
