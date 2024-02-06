@@ -75,7 +75,6 @@ function App() {
     return <div>Loading</div>;
   }
 
-  console.log(city);
   const weatherId = apiData.weather[0].id;
 
   const { backgroundImage, weatherIcon } = getWeatherAssets(weatherId);
