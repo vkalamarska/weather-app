@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { useState } from "react";
 import styled from "styled-components";
 
 const SummaryContainer = styled.section`
@@ -45,19 +43,17 @@ const Condition = styled.span`
   padding: 0 0 15px 18px;
 `;
 
-const WeatherSummary = ({ weatherData, weatherIcon: WeatherIcon }) => {
+const WeatherSummary = ({ weatherData, weatherIcon: WeatherIcon, city }) => {
   const localTimezoneOffsetInMs = new Date().getTimezoneOffset() * 60 * 1000;
   const date = new Date(
     new Date().getTime() + localTimezoneOffsetInMs + weatherData.timezone * 1000
   );
 
-  // 11:00 + (-60) + 240
-
   return (
     <SummaryContainer>
       <Temperature>{weatherData.main.temp.toFixed()}°</Temperature>
       <CityContainer>
-        <City>{weatherData.name}</City>
+        <City>{city?.name || weatherData.name}</City>
         <Time>
           {date.toLocaleString("en-US", {
             hour: "2-digit",

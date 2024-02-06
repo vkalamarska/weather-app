@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import getWeatherAssets from "../../getWeatherAssets";
 
 const FollowingDaysContainer = styled.div`
   margin: 0px 38px 37px 38px;
@@ -42,7 +41,6 @@ const FollowingDays = ({ city }) => {
         setForecastByDate(result);
       });
   }, [city.lat, city.lon]);
-  console.log(forecastByDate);
 
   return (
     <FollowingDaysContainer>

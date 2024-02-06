@@ -83,7 +83,11 @@ const LocationChooser = ({ setCity }) => {
   const inputRef = useRef(null);
 
   const handleCitySelect = (city) => {
-    setCity({ lat: city.properties.lat, lon: city.properties.lon });
+    setCity({
+      lat: city.properties.lat,
+      lon: city.properties.lon,
+      name: city.properties.city,
+    });
     setInputValue("");
   };
 

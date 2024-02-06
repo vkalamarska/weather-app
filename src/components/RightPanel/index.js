@@ -2,7 +2,6 @@ import styled from "styled-components";
 import LocationChooser from "./LocationChooser";
 import WeatherDetails from "./WeatherDetails";
 import FollowingDays from "./FollowingDays";
-import Line from "./Line";
 
 const RightContainer = styled.section`
   width: 35%;
